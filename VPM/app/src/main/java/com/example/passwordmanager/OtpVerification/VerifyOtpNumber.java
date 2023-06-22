@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.passwordmanager.MainActivity2;
+import com.example.passwordmanager.data.Firestore.FireStoreServices;
 import com.example.passwordmanager.databinding.Activity4VerifyOtpNumberBinding;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -253,6 +254,8 @@ public class VerifyOtpNumber extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         binding.btnVerifyOtp.setVisibility(View.VISIBLE);
                         binding.progressBar3.setVisibility(View.INVISIBLE);
+
+                        FireStoreServices.saveUser("Name", mobileNumber);
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithCredential:success");
                         Toast.makeText(VerifyOtpNumber.this, "Verification Successfull", Toast.LENGTH_SHORT).show();
