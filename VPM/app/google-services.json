@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "129211050455",
+    "project_id": "vpm-passwordmanager",
+    "storage_bucket": "vpm-passwordmanager.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:129211050455:android:711062e414bf420d530392",
+        "android_client_info": {
+          "package_name": "com.example.passwordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "129211050455-cjmiitdbcvqt4tqte15k12t2i3s4ceoe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.passwordmanager",
+            "certificate_hash": "aa25b9e2a3765cfa6b15dbda45b3456c6484826e"
+          }
+        },
+        {
+          "client_id": "129211050455-tf810nft5bjda1c2gt7munqudmr0tcv2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkTnZ5yPJgQjnQ4GWLH75cjFgCsK7EASg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "129211050455-tf810nft5bjda1c2gt7munqudmr0tcv2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

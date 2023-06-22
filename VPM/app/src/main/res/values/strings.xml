@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">VPM</string>
+    <string name="get_started">Get Started</string>
+    <string name="safely_manage_your_passwords_in_just_one_click_with_virtual_password_manager">Safely Manage your passwords in just one click with Virtual Password Manager</string>
+    <string name="horizontal_line">___</string>
+    <string name="welcome_to_vpm">Welcome to VPM</string>
+    <string name="hand_touch">Hand_touch</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="please_enter_the_otp_sent_to_you">Please Enter the OTP sent to you</string>
+    <string name="verify">Verify</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="did_nt_recieve_the_otp">Did\'nt recieve the OTP ?</string>
+    <string name="we_will_send_you_an_one_time_otp_on_this_given_mobile_number">We will send you an one time otp on this given mobile number</string>
+    <string name="enter_mobile_number">Enter Mobile Number</string>
+    <string name="get_otp">Get OTP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">VPM</string>
+    <string name="nav_header_subtitle">vpmSupport@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_passwords">Passwords</string>
+    <string name="menu_notes">Notes</string>
+    <string name="menu_addresses">Addresses</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+</resources>
