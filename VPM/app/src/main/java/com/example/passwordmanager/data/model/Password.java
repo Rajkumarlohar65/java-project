@@ -4,6 +4,10 @@ public class Password {
     private String domain;
     private String password;
 
+    public Password() {
+        // Required empty constructor for Firestore deserialization
+    }
+
     public Password(String domain, String password) {
         this.domain = domain;
         this.password = password;

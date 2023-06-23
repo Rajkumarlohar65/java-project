@@ -8,9 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.passwordmanager.MainActivity2;
-import com.example.passwordmanager.R;
 import com.example.passwordmanager.data.Firestore.FireStoreServices;
-import com.example.passwordmanager.databinding.ActivityPasswordBinding;
 import com.example.passwordmanager.databinding.ActivitySecureNoteBinding;
 
 public class SecureNoteActivity extends AppCompatActivity {

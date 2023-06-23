@@ -8,7 +8,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FireStoreServices {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -116,4 +121,46 @@ public class FireStoreServices {
         void onNoteSaved();
         void onNoteSaveFailed(Exception e);
     }
+
+    public static void getPasswords(OnPasswordsFetchListener listener) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+
+            db.collection("users")
+                    .document(uid)
+                    .collection("password")
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Password> passwords = new ArrayList<>();
+
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Password password = documentSnapshot.toObject(Password.class);
+                                passwords.add(password);
+                            }
+
+                            // Passwords fetched successfully
+                            listener.onPasswordsFetched(passwords);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Failed to fetch passwords
+                            listener.onFetchFailure(e.getMessage());
+                        }
+                    });
+        } else {
+            // Handle the case when the user is not signed in
+        }
+    }
+    public interface OnPasswordsFetchListener {
+        void onPasswordsFetched(List<Password> passwords);
+        void onFetchFailure(String error);
+    }
+
+
 }

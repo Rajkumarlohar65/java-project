@@ -35,35 +35,50 @@ public class PasswordActivity extends AppCompatActivity {
             String domain = binding.editTextDomain.getText().toString();
             String password = binding.editTextPassword.getText().toString();
 
-            // Show loading indicator
-            binding.progressBar.setVisibility(View.VISIBLE);
-            binding.buttonSave.setEnabled(false);
+            // Check if domain and password are null
+            if (domain.isEmpty() && password.isEmpty()) {
+                // Both domain and password are null
+                Toast.makeText(PasswordActivity.this, "Domain and Password are empty", Toast.LENGTH_SHORT).show();
+            } else if (domain.isEmpty()) {
+                // Only domain is null
+                Toast.makeText(PasswordActivity.this, "Domain is empty", Toast.LENGTH_SHORT).show();
+            } else if (password.isEmpty()) {
+                // Only password is null
+                Toast.makeText(PasswordActivity.this, "Password is empty", Toast.LENGTH_SHORT).show();
+            } else {
+                // Both domain and password have values
 
-            // Save password in Firestore
-            FireStoreServices.savePassword(domain, password, new FireStoreServices.OnPasswordSaveListener() {
-                @Override
-                public void onSuccess() {
-                    // Hide loading indicator
-                    binding.progressBar.setVisibility(View.GONE);
-                    binding.buttonSave.setEnabled(true);
+                // Show loading indicator
+                binding.progressBar.setVisibility(View.VISIBLE);
+                binding.buttonSave.setEnabled(false);
 
-                    // Start MainActivity2
-                    Intent intent = new Intent(PasswordActivity.this, MainActivity2.class);
-                    startActivity(intent);
-                    finish();
-                }
+                // Save password in Firestore
+                FireStoreServices.savePassword(domain, password, new FireStoreServices.OnPasswordSaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        // Hide loading indicator
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.buttonSave.setEnabled(true);
 
-                @Override
-                public void onFailure(String error) {
-                    // Hide loading indicator
-                    binding.progressBar.setVisibility(View.GONE);
-                    binding.buttonSave.setEnabled(true);
+                        // Start MainActivity2
+                        Intent intent = new Intent(PasswordActivity.this, MainActivity2.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                    // Show error message or handle the error
-                    Toast.makeText(PasswordActivity.this, "Failed to save password: " + error, Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(String error) {
+                        // Hide loading indicator
+                        binding.progressBar.setVisibility(View.GONE);
+                        binding.buttonSave.setEnabled(true);
+
+                        // Show error message or handle the error
+                        Toast.makeText(PasswordActivity.this, "Failed to save password: " + error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
+
 
 
     }
