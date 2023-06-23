@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.example.passwordmanager.MainActivity2;
 import com.example.passwordmanager.data.Firestore.FireStoreServices;
 import com.example.passwordmanager.databinding.Activity4VerifyOtpNumberBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -250,29 +253,45 @@ public class VerifyOtpNumber extends AppCompatActivity {
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        binding.btnVerifyOtp.setVisibility(View.VISIBLE);
-                        binding.progressBar3.setVisibility(View.INVISIBLE);
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            binding.btnVerifyOtp.setVisibility(View.VISIBLE);
+                            binding.progressBar3.setVisibility(View.INVISIBLE);
 
-                        FireStoreServices.saveUser("Name", mobileNumber);
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "signInWithCredential:success");
-                        Toast.makeText(VerifyOtpNumber.this, "Verification Successfull", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(VerifyOtpNumber.this, MainActivity2.class);
-                        startActivity(intent);
-                        finish();
+                            FireStoreServices.saveUser("Name", mobileNumber, new FireStoreServices.OnUserSavedListener() {
+                                @Override
+                                public void onUserSaved() {
+                                    // User data saved successfully
+                                    Log.d(TAG, "User data saved successfully");
+                                    Toast.makeText(VerifyOtpNumber.this, "Verification Successful", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(VerifyOtpNumber.this, MainActivity2.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
 
-                    } else {
-                        // Sign in failed, display a message and update the UI
-                        Log.w(TAG, "signInWithCredential:failure", task.getException());
-                        binding.btnVerifyOtp.setVisibility(View.VISIBLE);
-                        binding.progressBar3.setVisibility(View.INVISIBLE);
-                        Toast.makeText(VerifyOtpNumber.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            // The verification code entered was invalid
+                                @Override
+                                public void onUserSaveFailed(Exception e) {
+                                    // Error occurred while saving user data
+                                    Log.e(TAG, "Error saving user data: " + e.getMessage());
+                                    Toast.makeText(VerifyOtpNumber.this, "Error saving user data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    // Handle the failure scenario accordingly
+                                }
+                            });
+
+                        } else {
+                            // Sign in failed, display a message and update the UI
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            binding.btnVerifyOtp.setVisibility(View.VISIBLE);
+                            binding.progressBar3.setVisibility(View.INVISIBLE);
+                            Toast.makeText(VerifyOtpNumber.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                            }
                         }
                     }
                 });
     }
+
 }
