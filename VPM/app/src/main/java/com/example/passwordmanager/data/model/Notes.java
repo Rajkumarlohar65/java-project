@@ -4,6 +4,10 @@ public class Notes {
     private String title;
     private String message;
 
+    public Notes() {
+        // Required empty constructor for Firestore deserialization
+    }
+
     public Notes(String title, String message) {
         this.title = title;
         this.message = message;

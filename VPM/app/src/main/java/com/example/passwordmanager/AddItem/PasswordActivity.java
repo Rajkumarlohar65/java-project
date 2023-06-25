@@ -59,6 +59,7 @@ public class PasswordActivity extends AppCompatActivity {
                         // Hide loading indicator
                         binding.progressBar.setVisibility(View.GONE);
                         binding.buttonSave.setEnabled(true);
+                        Toast.makeText(PasswordActivity.this, "Password Saved Successfully", Toast.LENGTH_SHORT).show();
 
                         // Start MainActivity2
                         Intent intent = new Intent(PasswordActivity.this, MainActivity2.class);

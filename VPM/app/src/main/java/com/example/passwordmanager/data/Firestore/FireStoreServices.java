@@ -162,5 +162,45 @@ public class FireStoreServices {
         void onFetchFailure(String error);
     }
 
+    public static void getNotes(OnNotesFetchListener listener) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            String uid = user.getUid();
+
+            db.collection("users")
+                    .document(uid)
+                    .collection("notes")
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Notes> notes = new ArrayList<>();
+
+                            for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                                Notes note = documentSnapshot.toObject(Notes.class);
+                                notes.add(note);
+                            }
+
+                            // Passwords fetched successfully
+                            listener.onNotesFetched(notes);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            // Failed to fetch passwords
+                            listener.onFetchFailure(e.getMessage());
+                        }
+                    });
+        } else {
+            // Handle the case when the user is not signed in
+        }
+    }
+    public interface OnNotesFetchListener {
+        void onNotesFetched(List<Notes> notes);
+        void onFetchFailure(String error);
+    }
+
 
 }

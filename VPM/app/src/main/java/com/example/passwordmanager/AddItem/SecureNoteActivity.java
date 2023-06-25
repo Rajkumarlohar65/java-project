@@ -38,6 +38,7 @@ public class SecureNoteActivity extends AppCompatActivity {
                     // Hide loading indicator
                     binding.progressBar.setVisibility(View.GONE);
                     binding.saveButton.setEnabled(true);
+                    Toast.makeText(SecureNoteActivity.this, "Note Saved Successfully", Toast.LENGTH_SHORT).show();
 
                     // Start MainActivity2
                     Intent intent = new Intent(SecureNoteActivity.this, MainActivity2.class);

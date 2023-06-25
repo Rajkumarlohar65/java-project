@@ -56,7 +56,6 @@ public class Add_Item extends AppCompatActivity {
                     break;
                 // Add cases for other items as needed
                 default:
-                    Toast.makeText(Add_Item.this, "Selected item: " + selectedItem, Toast.LENGTH_SHORT).show();
                     break;
             }
         });
